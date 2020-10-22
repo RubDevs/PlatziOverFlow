@@ -16,6 +16,7 @@
     "standard": "^15.0.0"
   },
   "dependencies": {
-    "@hapi/hapi": "^20.0.1"
+    "@hapi/hapi": "^20.0.1",
+    "inert": "^5.1.3"
   }
 }
