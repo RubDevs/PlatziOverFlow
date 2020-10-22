@@ -4,7 +4,7 @@
   "description": "a like stackoverflow site",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon",
+    "dev": "nodemon --ext js,hbs",
     "lint": "standard",
     "lint-fix": "standard --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "@hapi/hapi": "^20.0.1",
+    "@hapi/vision": "^6.0.1",
+    "handlebars": "^4.7.6",
     "inert": "^5.1.3"
   }
 }
