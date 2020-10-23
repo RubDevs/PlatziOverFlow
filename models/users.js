@@ -1,5 +1,7 @@
 'use strict'
 
+const bcrypt = require('bcrypt')
+
 class Users{
     constructor(db){
         this.db = db
@@ -8,10 +10,21 @@ class Users{
     }
 
     async create(data){
-        const newUser = this.collection.push()
-        newUser.set(data)
+        console.log(data)
+        const user = {
+            ...data
+        }
+        user.password = await this.constructor.encrypt(user.password)
+        const newUser = this.collection.push(user)
+        newUser.set(user)
 
         return newUser.key
+    }
+
+    static async encrypt (passwd){
+        const saltRounds = 10
+        const hashedPassword = await bcrypt.hash(passwd,saltRounds)
+        return hashedPassword
     }
 }
 

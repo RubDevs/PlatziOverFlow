@@ -37,10 +37,10 @@ async function init(){
         server.route(routes)
     
         await server.start()
-        
+
     } catch (error) {
         console.error(error)
-        procces.exit(1)   
+        process.exit(1)   
     }
 
     console.log(`Servidor escuchando en: ${server.info.uri}`)
