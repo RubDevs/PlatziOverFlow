@@ -1,11 +1,6 @@
 'use strict'
 const { users } = require('../models/index')
 
-function register (req,h) {
-    return h.view('register',{
-        title:"Registro"
-    })
-}
 
 async function createUser (req,h) {
     let result
@@ -21,6 +16,5 @@ async function createUser (req,h) {
 
 
 module.exports = {
-    register: register,
     create: createUser
 }

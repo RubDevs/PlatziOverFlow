@@ -22,7 +22,12 @@ module.exports = [{
 {
     method: 'GET',
     path: '/register',
-    handler: user.register
+    handler: site.register
+},
+{
+    method: 'GET',
+    path: '/login',
+    handler: site.login
 },
 
 {
