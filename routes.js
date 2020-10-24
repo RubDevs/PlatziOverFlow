@@ -29,9 +29,23 @@ module.exports = [{
     path: '/login',
     handler: site.login
 },
+{
+    method: 'POST',
+    path: '/validate-user',
+    options: {
+        validate: {
+            payload:Joi.object( {
+                email: Joi.string().email().required(),
+                password: Joi.string().required().min(6)
+            })
+        }
+    },
+    handler: user.validate
+},
 
 {
     method: 'POST',
+    path: '/create-user',
     options: {
         validate: {
             payload:Joi.object( {
@@ -41,6 +55,5 @@ module.exports = [{
             })
         }
     },
-    path: '/create-user',
     handler: user.create
 }]
