@@ -8,10 +8,15 @@ async function createUser (req,h) {
         result = await users.create(req.payload)
     } catch (error) {
         console.error(error)
-        return h.response('Problema al crear el usuario').code(500)
+        return h.view('register',{
+            title: 'Registro',
+            error: 'Error creando el usuario'
+        })
     }
-
-    return h.response(`Usuario creado, ID: ${result}`)
+    return h.view('register',{
+        title: 'Registro',
+        success: 'Usuario creado exitosamente.'
+    })
 }
 
 async function validateUser(req,h) {
@@ -19,11 +24,17 @@ async function validateUser(req,h) {
     try {
         result = await users.validate(req.payload)
         if (!result){
-            return h.response('Usuario y/o contraseña incorrectos').code(401)
+            return h.view('login',{
+                title: 'Login',
+                error: 'Usuario y/o contraseña incorrectos'
+            })
         }
     } catch (error) {
         console.error(error)
-        return h.response('Problema al validar usuario').code(500)
+        return h.view('login',{
+            title: 'Login',
+            error: 'Problemas validando al usuario'
+        })
     }
     return h.redirect('/').state('user',{
         name: result.name,

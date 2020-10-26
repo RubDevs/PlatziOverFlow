@@ -10,17 +10,6 @@ module.exports = [{
 
 {
     method: 'GET',
-    path: '/{param*}',
-    handler: {
-        directory: {
-            path: '.',
-            index: ['index.html']
-        }
-    }
-},
-
-{
-    method: 'GET',
     path: '/register',
     handler: site.register
 },
@@ -65,4 +54,19 @@ module.exports = [{
         
     },
     handler: user.create
+},
+{
+    method: 'GET',
+    path: '/assets/{param*}',
+    handler: {
+        directory: {
+            path: '.',
+            index: ['index.html']
+        }
+    }
+},
+{
+    method: ['GET', 'POST'],
+    path: '/{any*}',
+    handler: site.notFound
 }]
