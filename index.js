@@ -53,4 +53,12 @@ async function init(){
     console.log(`Servidor escuchando en: ${server.info.uri}`)
 }
 
+process.on('unhandledRejection',error => {
+    console.error('UnhandledRejection',error.message,error)
+})
+
+process.on('uncaughtException',error => {
+    console.error('UncaughtException', error.message, error)
+})
+
 init()
