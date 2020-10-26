@@ -39,11 +39,13 @@ module.exports = [{
     path: '/validate-user',
     options: {
         validate: {
-            payload:Joi.object( {
+            payload: Joi.object( {
                 email: Joi.string().email().required(),
                 password: Joi.string().required().min(6)
-            })
-        }
+            }),
+            failAction: user.failValidation
+        },
+        
     },
     handler: user.validate
 },
@@ -57,8 +59,10 @@ module.exports = [{
                 name: Joi.string().required().min(3),
                 email: Joi.string().email().required(),
                 password: Joi.string().required().min(6)
-            })
-        }
+            }),
+            failAction: user.failValidation
+        },
+        
     },
     handler: user.create
 }]
