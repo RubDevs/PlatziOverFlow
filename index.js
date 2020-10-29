@@ -8,6 +8,7 @@ const path = require('path')
 const site = require('./controllers/site')
 const routes = require('./routes')
 const { encode } = require('querystring')
+const methods = require('./lib/methods')
 
 const server = Hapi.server({
     port: process.env.PORT || 3000,
@@ -25,6 +26,7 @@ async function init(){
     try {
         await server.register(inert)
         await server.register(vision)
+        server.method('setAnswerRight',methods.setAnswerRight)
 
         server.state('user',{
             ttl: 1000 * 60 * 60 * 24 * 7,
