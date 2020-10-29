@@ -8,11 +8,15 @@ class Questions {
     }
 
     async create (data,user){
-        data.owner = user
-        const question = this.collection.push()
-        question.set(data)
+        const question ={
+            ...data
+        }
+        question.owner = user.name
+        console.log(question)
+        const newQuestion = this.collection.push(question)
+        newQuestion.set(question)
 
-        return question.key
+        return newQuestion.key
     }
 
 }

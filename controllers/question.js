@@ -4,7 +4,7 @@ const { questions } = require('../models/index');
 async function createQuestion(req,h) {
     let result
     try {
-        result = await questions.create(req.payload,req.state('user'))
+        result = await questions.create(req.payload,req.state.user)
         console.log(`Pregunta creada con el ID ${result}`)
     } catch (error) {
         console.error(`Ocurrio un error: ${error}`)
@@ -16,6 +16,19 @@ async function createQuestion(req,h) {
     return h.response(`Pregunta creada con el ID ${result}`)
 }
 
+function failValidation(req,h,error) {
+    const templates = {
+        '/create-question': 'ask'
+    }
+
+    return h.view(templates[req.path],{
+        title: 'Error de validacion',
+        error: 'Por favor complete los campos requeridos'
+    }).code(400).takeover()
+    //return Boom.badRequest('Fallo la validacion', req.payload)
+}
+
 module.exports = {
-    createQuestion: createQuestion
+    createQuestion: createQuestion,
+    failValidation: failValidation
 }
