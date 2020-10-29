@@ -19,6 +19,12 @@ class Questions {
         return newQuestion.key
     }
 
+    async getLast(amount){
+        const query = await this.collection.limitToLast(amount).once('value')
+        const data = query.val()
+        return data
+    }
+
 }
 
 module.exports = Questions
