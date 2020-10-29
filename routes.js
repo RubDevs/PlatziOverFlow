@@ -6,6 +6,12 @@ const question = require('./controllers/question')
 module.exports = [{
     method: 'GET',
     path: '/',
+    options: {
+        cache: {
+            expiresIn: 1000*30,
+            privacy: 'private'
+        }
+    },
     handler: site.home
 },
 
