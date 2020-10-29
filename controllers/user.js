@@ -38,6 +38,7 @@ async function validateUser(req,h) {
     }
     return h.redirect('/').state('user',{
         name: result.name,
+        email: result.email
     })
 }
 

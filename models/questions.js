@@ -11,7 +11,7 @@ class Questions {
         const question ={
             ...data
         }
-        question.owner = user.name
+        question.owner = user
         console.log(question)
         const newQuestion = this.collection.push(question)
         newQuestion.set(question)
@@ -21,6 +21,13 @@ class Questions {
 
     async getLast(amount){
         const query = await this.collection.limitToLast(amount).once('value')
+        const data = query.val()
+        return data
+    }
+
+    async getOne(id){
+        console.log(id)
+        const query = await this.collection.child(id).once('value')
         const data = query.val()
         return data
     }
