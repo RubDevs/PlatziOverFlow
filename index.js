@@ -9,6 +9,14 @@ const site = require('./controllers/site')
 const routes = require('./routes')
 const { encode } = require('querystring')
 
+handlebars.registerHelper('answerNumber',(answers) =>{
+    if (!answers){
+        return 0
+    }
+    const keys = Object.keys(answers)
+    return keys.length
+})
+
 const server = Hapi.server({
     port: process.env.PORT || 3000,
     host: 'localhost',

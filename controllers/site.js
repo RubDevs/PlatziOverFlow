@@ -1,4 +1,5 @@
 'use strict'
+
 const {questions} = require('../models/index')
 
 async function home (req,h) {
