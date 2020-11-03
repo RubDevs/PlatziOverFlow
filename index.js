@@ -50,6 +50,7 @@ async function init(){
                 prefix: 'api'
             }
         })
+
         server.method('setAnswerRight',methods.setAnswerRight)
         server.method('getLast',methods.getLast,{
             cache: {
