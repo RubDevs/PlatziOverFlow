@@ -45,6 +45,15 @@ async function init(){
         });
 
         await server.register({
+            plugin: require('@hapi/crumb'),
+            options: {
+                cookieOptions: {
+                    isSecure: process.env.NODE_ENV === 'prod'
+                }
+            }
+        })
+
+        await server.register({
             plugin: require('./lib/api'),
             options: {
                 prefix: 'api'
