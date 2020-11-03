@@ -6,6 +6,7 @@ const vision = require('@hapi/vision')
 const blankie = require('blankie')
 const scooter = require('@hapi/scooter')
 const inert = require('inert')
+const hapiDevErrors = require('hapi-dev-errors')
 const good = require('@hapi/good')
 const path = require('path')
 const site = require('./controllers/site')
@@ -72,6 +73,13 @@ async function init(){
                 generateNonces: false
             }
         }])
+
+        await server.register({
+            plugin: hapiDevErrors,
+            options: {
+                showErrors: process.env.NODE_ENV !== 'prod'
+            }
+        })
 
         server.method('setAnswerRight',methods.setAnswerRight)
         server.method('getLast',methods.getLast,{
