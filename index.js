@@ -4,6 +4,7 @@ const Hapi = require('@hapi/hapi')
 const handlebars = require('./lib/helpers')
 const vision = require('@hapi/vision')
 const inert = require('inert')
+const good = require('@hapi/good')
 const path = require('path')
 const site = require('./controllers/site')
 const routes = require('./routes')
@@ -26,6 +27,22 @@ async function init(){
     try {
         await server.register(inert)
         await server.register(vision)
+        await server.register({
+            plugin: good,
+            options: {
+                ops: {
+                    interval: 2000,
+                },
+                reporters: {
+                    myConsoleReporters: [
+                        {
+                            module: require('@hapi/good-console')
+                        },
+                        'stdout',
+                    ],
+                },
+            },
+        });
         server.method('setAnswerRight',methods.setAnswerRight)
         server.method('getLast',methods.getLast,{
             cache: {
@@ -60,15 +77,15 @@ async function init(){
         process.exit(1)   
     }
 
-    console.log(`Servidor escuchando en: ${server.info.uri}`)
+    server.log('info',`Servidor escuchando en: ${server.info.uri}`)
 }
 
 process.on('unhandledRejection',error => {
-    console.error('UnhandledRejection',error.message,error)
+    server.log('UnhandledRejection',error.message,error)
 })
 
 process.on('uncaughtException',error => {
-    console.error('UncaughtException', error.message, error)
+    server.log('UncaughtException', error.message, error)
 })
 
 init()
